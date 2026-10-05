@@ -49,10 +49,6 @@ public class Pokemon {
         return maxHp;
     }
 
-    public int getCurrentHp() {
-        return currentHp;
-    }
-
     public void setMaxHp(int maxHp) throws InvalidPokemonException{
         if (maxHp <= 0 || maxHp >= 1000) {
             throw new InvalidPokemonException("Pokémon HP must be between 1 and 999.");
@@ -99,4 +95,17 @@ public class Pokemon {
         return name + " - " + type + " - " + maxHp + " HP" +
                 " - Attacks: " + attacks;
     }
+
+    public void takeDmg (int dmg) {
+        currentHp -= dmg;
+
+        if (currentHp < 0) {
+            currentHp = 0;
+        }
+    }
+
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
 }
