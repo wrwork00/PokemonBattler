@@ -2,6 +2,10 @@ package menu;
 
 import exception.InvalidPokemonException;
 import pokedex.Pokedex;
+import battle.Battle;
+import pokemon.Attack;
+import pokemon.Pokemon;
+import pokemon.Type;
 
 import java.io.File;
 import java.util.Scanner;

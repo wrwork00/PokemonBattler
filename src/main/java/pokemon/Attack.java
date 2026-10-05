@@ -2,6 +2,18 @@ package pokemon;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+// Berättar för Jackson vilken riktig Attack-klass som ska användas.
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "attackType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = DmgAttack.class, name = "damage")
+})
 
 public abstract class Attack {
 
