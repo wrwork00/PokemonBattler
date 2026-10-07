@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = DmgAttack.class, name = "damage")
 })
 
-public abstract class Attack {
+public abstract class Attack implements BattleAction{
 
     // Attack Info
     private String name;

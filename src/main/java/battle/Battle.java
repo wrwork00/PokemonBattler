@@ -1,7 +1,7 @@
 package battle;
 
 import pokemon.Pokemon;
-import pokemon.Attack;
+import pokemon.BattleAction;
 
 public class Battle {
 
@@ -13,9 +13,8 @@ public class Battle {
         this.opponentPokemon = opponentPokemon;
     }
 
-    public void playerAttack(Attack attack) {
-        int damage = attack.getBaseDamage();
-        opponentPokemon.takeDmg(damage);
+    public void playerAttack(BattleAction attack) {
+        attack.perform(playerPokemon, opponentPokemon);
     }
 
 

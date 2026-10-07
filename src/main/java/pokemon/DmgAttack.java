@@ -1,6 +1,6 @@
 package pokemon;
 
-public class DmgAttack extends Attack implements BattleAction{
+public class DmgAttack extends Attack {
 
     public DmgAttack() {
     }

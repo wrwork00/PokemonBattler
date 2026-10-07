@@ -4,6 +4,7 @@ import exception.InvalidPokemonException;
 import pokedex.Pokedex;
 import battle.Battle;
 import pokemon.Attack;
+import pokemon.BattleAction;
 import pokemon.Pokemon;
 import pokemon.Type;
 
@@ -40,6 +41,7 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
+
 
         // Håller koll på om programmet ska fortsätta köras
         boolean running = true;
