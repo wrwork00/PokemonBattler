@@ -2,6 +2,7 @@ package menu;
 
 import exception.InvalidPokemonException;
 import pokedex.Pokedex;
+import java.util.List;
 import battle.Battle;
 import pokemon.Attack;
 import pokemon.BattleAction;
@@ -43,6 +44,7 @@ public class Main {
         }
 
 
+
         // Håller koll på om programmet ska fortsätta köras
         boolean running = true;
 
@@ -57,7 +59,8 @@ public class Main {
             System.out.println("5. Save");
             System.out.println("6. Load");
             System.out.println("7. Reset");
-            System.out.println("8. Exit");
+            System.out.println("8. Start Battle");
+            System.out.println("9. Exit");
             System.out.print("Choose an option: ");
 
             int choice = readInt(input);
@@ -92,6 +95,48 @@ public class Main {
                     }
 
                     case 8 -> {
+                        Pokemon player = pokedex.getPokemons().get(0);
+                        Pokemon opponent = pokedex.getPokemons().get(1);
+
+                        Battle battle = new Battle(player, opponent);
+
+                        System.out.println("Battle started!");
+
+                        // Battle fortsätter så länge båda Pokémon fortfarande har HP kvar.
+                        while (!player.isDefeated() && !opponent.isDefeated()) {
+
+                            // Spelaren väljer en attack.
+                            BattleAction chosenAction = battle.choosePlayerAction(input);
+
+                            if (chosenAction == null) {
+                                break;
+                            }
+
+                            // Spelarens valda attack utförs.
+                            battle.playerAttack(chosenAction);
+
+                            System.out.println("Opponent HP: " + opponent.getCurrentHp());
+
+                            if (opponent.isDefeated()) {
+                                System.out.println("Opponent is defeated!");
+                                break;
+                            }
+
+                            // CPU:n väljer slumpmässigt en av sina attacker.
+                            BattleAction opponentAction = battle.chooseOpponentAction();
+
+                            // CPU:n attackerar spelarens Pokémon.
+                            battle.opponentAttack(opponentAction);
+
+                            System.out.println("Your HP: " + player.getCurrentHp());
+
+                            if (player.isDefeated()) {
+                                System.out.println("Your Pokémon is defeated!");
+                            }
+                        }
+                    }
+
+                    case 9 -> {
 
                         System.out.println("Exit");
 

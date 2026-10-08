@@ -108,4 +108,10 @@ public class Pokemon {
         return currentHp;
     }
 
+
+    // Kontrollerar om Pokémon HP är 0 eller lägre, för att se om den är besegrad eller ej
+    public boolean isDefeated() {
+        return currentHp <= 0;
+    }
+
 }
