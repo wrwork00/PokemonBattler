@@ -99,4 +99,37 @@ public class Battle {
         return actions.get(randomIndex);
     }
 
+    // Visar och väljer Pokémon
+    public Pokemon choosePlayerPokemon(List<Pokemon> pokemons, Scanner input) {
+        System.out.println("=== Choose Your Pokémon ===");
+
+        for (int i = 0; i < pokemons.size(); i++) {
+            System.out.println((i + 1) + ". " + pokemons.get(i).getName());
+        }
+
+        System.out.println("0. Cancel");
+
+        while (true) {
+            System.out.print("Choose a Pokémon: ");
+
+            try {
+                int choice = Integer.parseInt(input.nextLine());
+
+                if (choice == 0) {
+                    return null;
+                }
+
+                if (choice < 1 || choice > pokemons.size()) {
+                    System.out.println("Invalid choice!");
+                    continue;
+                }
+
+                return pokemons.get(choice - 1);
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input!");
+            }
+        }
+    }
+
 }

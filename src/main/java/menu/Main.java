@@ -2,7 +2,9 @@ package menu;
 
 import exception.InvalidPokemonException;
 import pokedex.Pokedex;
+
 import java.util.List;
+
 import battle.Battle;
 import pokemon.Attack;
 import pokemon.BattleAction;
@@ -42,7 +44,6 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
-
 
 
         // Håller koll på om programmet ska fortsätta köras
@@ -95,12 +96,49 @@ public class Main {
                     }
 
                     case 8 -> {
-                        Pokemon player = pokedex.getPokemons().get(0);
-                        Pokemon opponent = pokedex.getPokemons().get(1);
+
+                        if (pokedex.getPokemons().isEmpty()) {
+                            System.out.println("You don't have any Pokémon!");
+                            break;
+                        }
+
+                        // Låter spelaren välja vilken Pokémon som ska slåss.
+                        Battle selection = new Battle(
+                                pokedex.getPokemons().get(0),
+                                pokedex.getPokemons().get(0)
+                        );
+
+                        Pokemon player = selection.choosePlayerPokemon(
+                                pokedex.getPokemons(), input
+                        );
+
+                        if (player == null) {
+                            System.out.println("Battle cancelled.");
+                            break;
+                        }
+
+                        Pokemon opponent = null;
+
+                        for (Pokemon pokemon : pokedex.getPokemons()) {
+                            if (pokemon != player && !pokemon.isDefeated()) {
+                                opponent = pokemon;
+                                break;
+                            }
+                        }
+
+                        if (opponent == null) {
+                            System.out.println("No available opponent!");
+                            break;
+                        }
+
+                        player.restoreHp();
+                        opponent.restoreHp();
 
                         Battle battle = new Battle(player, opponent);
 
                         System.out.println("Battle started!");
+
+                        // Behåll din befintliga while-loop här.
 
                         // Battle fortsätter så länge båda Pokémon fortfarande har HP kvar.
                         while (!player.isDefeated() && !opponent.isDefeated()) {
