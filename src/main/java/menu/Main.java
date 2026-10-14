@@ -5,6 +5,8 @@ import pokedex.Pokedex;
 
 import java.util.List;
 
+import battle.BattleResult;
+import battle.BattleResultStorage;
 import battle.Battle;
 import pokemon.Attack;
 import pokemon.BattleAction;
@@ -166,10 +168,28 @@ public class Main {
                             }
                         }
 
+                        String result = null;
+
+                        // Kontrollerar resultatet när striden är avslutad.
                         if (player.isDefeated()) {
                             System.out.println("You lost the battle!");
+                            result = "LOSS";
                         } else if (opponent.isDefeated()) {
                             System.out.println("You won the battle!");
+                            result = "WIN";
+                        }
+
+                        // Sparar bara resultat om striden slutade med vinst eller förlust.
+                        // Om spelaren avbröt striden sparas inget resultat.
+                        if (result != null) {
+                            BattleResult battleResult = new BattleResult(
+                                    player.getName(),
+                                    opponent.getName(),
+                                    result
+                            );
+
+                            BattleResultStorage.saveResult(battleResult);
+                            System.out.println("Battle result saved!");
                         }
 
                         System.out.println("\n=== Battle Log ===");
