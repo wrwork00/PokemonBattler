@@ -96,7 +96,7 @@ public class Main {
                     }
 
                     case 8 -> {
-
+                        // Kontrollerar att spelaren äger minst en Pokémon.
                         if (pokedex.getPokemons().isEmpty()) {
                             System.out.println("You don't have any Pokémon!");
                             break;
@@ -112,49 +112,42 @@ public class Main {
                                 pokedex.getPokemons(), input
                         );
 
+                        // Avbryter om spelaren väljer 0.
                         if (player == null) {
                             System.out.println("Battle cancelled.");
                             break;
                         }
 
-                        Pokemon opponent = null;
+                        // CPU:n väljer en slumpmässig vild Pokémon.
+                        Pokemon opponent = Battle.chooseWildPokemon();
 
-                        for (Pokemon pokemon : pokedex.getPokemons()) {
-                            if (pokemon != player && !pokemon.isDefeated()) {
-                                opponent = pokemon;
-                                break;
-                            }
-                        }
-
-                        if (opponent == null) {
-                            System.out.println("No available opponent!");
-                            break;
-                        }
-
+                        // Återställer båda Pokémon till full HP inför striden.
                         player.restoreHp();
                         opponent.restoreHp();
 
+                        // Skapar striden med spelarens och motståndarens Pokémon.
                         Battle battle = new Battle(player, opponent);
 
                         System.out.println("Battle started!");
+                        System.out.println(player.getName() + " vs " + opponent.getName());
 
-                        // Behåll din befintliga while-loop här.
-
-                        // Battle fortsätter så länge båda Pokémon fortfarande har HP kvar.
+                        // Striden fortsätter tills en Pokémon blir besegrad.
                         while (!player.isDefeated() && !opponent.isDefeated()) {
 
                             // Spelaren väljer en attack.
                             BattleAction chosenAction = battle.choosePlayerAction(input);
 
+                            // Avslutar striden om spelaren väljer 0.
                             if (chosenAction == null) {
+                                System.out.println("Battle cancelled.");
                                 break;
                             }
 
-                            // Spelarens valda attack utförs.
+                            // Spelarens Pokémon utför attacken.
                             battle.playerAttack(chosenAction);
-
                             System.out.println("Opponent HP: " + opponent.getCurrentHp());
 
+                            // Kontrollerar om motståndarens Pokémon har besegrats.
                             if (opponent.isDefeated()) {
                                 System.out.println("Opponent is defeated!");
                                 break;
@@ -163,15 +156,22 @@ public class Main {
                             // CPU:n väljer slumpmässigt en av sina attacker.
                             BattleAction opponentAction = battle.chooseOpponentAction();
 
-                            // CPU:n attackerar spelarens Pokémon.
+                            // Motståndarens Pokémon attackerar spelarens Pokémon.
                             battle.opponentAttack(opponentAction);
-
                             System.out.println("Your HP: " + player.getCurrentHp());
 
+                            // Kontrollerar om spelarens Pokémon har besegrats.
                             if (player.isDefeated()) {
                                 System.out.println("Your Pokémon is defeated!");
                             }
                         }
+
+                        if (player.isDefeated()) {
+                            System.out.println("You lost the battle!");
+                        } else if (opponent.isDefeated()) {
+                            System.out.println("You won the battle!");
+                        }
+
                     }
 
                     case 9 -> {

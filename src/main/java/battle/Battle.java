@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.InvalidPokemonException;
+import pokemon.Type;
 import pokemon.Attack;
 import pokemon.Pokemon;
 import pokemon.BattleAction;
@@ -42,6 +44,7 @@ public class Battle {
     public void showPlayerActions() {
         List<BattleAction> actions = getPlayerActions();
 
+        System.out.println();
         System.out.println("=== Choose Attack ===");
 
         for (int i = 0; i < actions.size(); i++) {
@@ -101,6 +104,7 @@ public class Battle {
 
     // Visar och väljer Pokémon
     public Pokemon choosePlayerPokemon(List<Pokemon> pokemons, Scanner input) {
+        System.out.println();
         System.out.println("=== Choose Your Pokémon ===");
 
         for (int i = 0; i < pokemons.size(); i++) {
@@ -132,4 +136,53 @@ public class Battle {
         }
     }
 
+    // Skapar en pool med vilda Pokémon som CPU:n kan välja mellan.
+    private static List<Pokemon> createWildPokemonPool() {
+        List<Pokemon> wildPokemon = new ArrayList<>();
+
+        String[][] pokemonData = {
+                {"Wild Charmander", "FIRE", "100", "Tackle", "Flame Blast", "Flame Throw"},
+                {"Wild Squirtle", "WATER", "110", "Tackle", "Water Blast", "Bubble Beam"},
+                {"Wild Bulbasaur", "GRASS", "120", "Tackle", "Vine Whip", "Grass Dust"},
+                {"Wild Pikachu", "ELECTRIC", "90", "Tackle", "Thunder Bolt", "Lightning Strike"},
+                {"Wild Eevee", "NORMAL", "80", "Tackle", "Heavy Attack", "Tail Whip"},
+                {"Wild Gengar", "GHOST", "150", "Tackle", "Shadow Ball", "Psychosis"},
+                {"Wild Magmar", "FIRE", "130", "Tackle", "Flame Blast", "Flame Throw"},
+                {"Wild Golduck", "WATER", "140", "Tackle", "Water Blast", "Bubble Beam"},
+                {"Wild Gloom", "GRASS", "125", "Tackle", "Vine Whip", "Grass Dust"},
+                {"Wild Raichu", "ELECTRIC", "100", "Tackle", "Thunder Bolt", "Lightning Strike"}
+        };
+
+        try {
+            for (String[] data : pokemonData) {
+                Pokemon pokemon = new Pokemon(
+                        data[0],
+                        Type.valueOf(data[1]),
+                        Integer.parseInt(data[2]),
+                        Integer.parseInt(data[2])
+                );
+
+                for (int i = 3; i < data.length; i++) {
+                    pokemon.addAttack(Attack.getAttackByName(data[i]));
+                }
+
+                wildPokemon.add(pokemon);
+            }
+        } catch (InvalidPokemonException e) {
+            throw new IllegalStateException("Could not create wild Pokémon pool.", e);
+        }
+
+        return wildPokemon;
+    }
+
+    public static Pokemon chooseWildPokemon() {
+        List<Pokemon> wildPokemon = createWildPokemonPool();
+
+        int randomIndex = (int) (Math.random() * wildPokemon.size());
+
+        return wildPokemon.get(randomIndex);
+    }
+
 }
+
+
