@@ -144,7 +144,7 @@ public class Main {
                             }
 
                             // Spelarens Pokémon utför attacken.
-                            battle.playerAttack(chosenAction);
+                            System.out.println(battle.playerAttack(chosenAction));
                             System.out.println("Opponent HP: " + opponent.getCurrentHp());
 
                             // Kontrollerar om motståndarens Pokémon har besegrats.
@@ -157,7 +157,7 @@ public class Main {
                             BattleAction opponentAction = battle.chooseOpponentAction();
 
                             // Motståndarens Pokémon attackerar spelarens Pokémon.
-                            battle.opponentAttack(opponentAction);
+                            System.out.println(battle.opponentAttack(opponentAction));
                             System.out.println("Your HP: " + player.getCurrentHp());
 
                             // Kontrollerar om spelarens Pokémon har besegrats.
@@ -170,6 +170,12 @@ public class Main {
                             System.out.println("You lost the battle!");
                         } else if (opponent.isDefeated()) {
                             System.out.println("You won the battle!");
+                        }
+
+                        System.out.println("\n=== Battle Log ===");
+
+                        for (String message : battle.getBattleLog()) {
+                            System.out.println(message);
                         }
 
                     }

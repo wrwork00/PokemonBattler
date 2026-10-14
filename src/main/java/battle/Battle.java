@@ -11,6 +11,9 @@ import pokemon.Attack;
 import pokemon.Pokemon;
 import pokemon.BattleAction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Battle {
 
     private Pokemon playerPokemon;
@@ -21,12 +24,18 @@ public class Battle {
         this.opponentPokemon = opponentPokemon;
     }
 
-    public void playerAttack(BattleAction attack) {
-        attack.perform(playerPokemon, opponentPokemon);
+    public String playerAttack(BattleAction attack) {
+        // Utför spelarens attack och sparar resultatet.
+        String message = attack.perform(playerPokemon, opponentPokemon);
+        battleLog.add(message);
+        return message;
     }
 
-    public void opponentAttack(BattleAction attack) {
-        attack.perform(opponentPokemon, playerPokemon);
+    public String opponentAttack(BattleAction attack) {
+        // Utför motståndarens attack och sparar resultatet.
+        String message = attack.perform(opponentPokemon, playerPokemon);
+        battleLog.add(message);
+        return message;
     }
 
     public List<BattleAction> getPlayerActions() {
@@ -181,6 +190,14 @@ public class Battle {
         int randomIndex = (int) (Math.random() * wildPokemon.size());
 
         return wildPokemon.get(randomIndex);
+    }
+
+    // Sparar meddelanden från striden i den ordning de inträffar.
+    private final List<String> battleLog = new ArrayList<>();
+
+    // Returnerar en kopia av stridsloggen så att den inte kan ändras utifrån.
+    public List<String> getBattleLog() {
+        return new ArrayList<>(battleLog);
     }
 
 }

@@ -10,23 +10,28 @@ public class DmgAttack extends Attack {
     }
 
     @Override
-    public void perform(Pokemon user, Pokemon target) {
+    public String perform(Pokemon user, Pokemon target) {
 
+        // Slumpar ett tal mellan 1 och 100 för att avgöra om attacken träffar.
         int hitChance = (int) (Math.random() * 100) + 1;
 
-
+        // Om slumpvärdet är högre än träffsäkerheten missar attacken.
         if (hitChance > getAccuracy()) {
-            System.out.println(getName() + " missed!");
-            return;
+            return user.getName() + "'s " + getName() + " missed!";
         }
 
 
+        int hpBefore = target.getCurrentHp();
+
         target.takeDmg(getBaseDamage());
 
-        System.out.println(
-                user.getName() + " hit " + target.getName()
-                        + " for " + getBaseDamage() + " damage."
-        );
+
+        int actualDamage = hpBefore - target.getCurrentHp();
+
+        // Returnerar ett meddelande som kan visas och sparas i loggen.
+        return user.getName() + " used " + getName()
+                + " on " + target.getName()
+                + " for " + actualDamage + " damage.";
     }
 
     @Override
