@@ -1,6 +1,5 @@
 package battle;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,9 +9,6 @@ import pokemon.Type;
 import pokemon.Attack;
 import pokemon.Pokemon;
 import pokemon.BattleAction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Battle {
 
@@ -25,6 +21,11 @@ public class Battle {
     }
 
     public String playerAttack(BattleAction attack) {
+
+        if (playerPokemon.isDefeated()) {
+            return playerPokemon.getName() + " has no HP left and cannot attack.";
+        }
+
         // Utför spelarens attack och sparar resultatet.
         String message = attack.perform(playerPokemon, opponentPokemon);
         battleLog.add(message);
@@ -32,6 +33,11 @@ public class Battle {
     }
 
     public String opponentAttack(BattleAction attack) {
+
+        if (opponentPokemon.isDefeated()) {
+            return opponentPokemon.getName() + " has no HP left and cannot attack.";
+        }
+
         // Utför motståndarens attack och sparar resultatet.
         String message = attack.perform(opponentPokemon, playerPokemon);
         battleLog.add(message);
@@ -64,7 +70,14 @@ public class Battle {
     }
 
     public BattleAction choosePlayerAction(Scanner input) {
+
         List<BattleAction> actions = getPlayerActions();
+
+        // Kontrollerar att Pokémon har minst en attack.
+        if (actions.isEmpty()) {
+            System.out.println("Your Pokémon has no attacks!");
+            return null;
+        }
 
         showPlayerActions();
 
@@ -102,14 +115,19 @@ public class Battle {
         return actions;
     }
 
-    // Väljer slumpmässigt en av motståndarens attacker.
     public BattleAction chooseOpponentAction() {
         List<BattleAction> actions = getOpponentActions();
 
-        int randomIndex = (int) (Math.random() * actions.size());
+        // Kontrollerar att motståndaren har minst en attack.
+        if (actions.isEmpty()) {
+            return null;
+        }
 
+        // Väljer slumpmässigt en av motståndarens attacker.
+        int randomIndex = (int) (Math.random() * actions.size());
         return actions.get(randomIndex);
     }
+
 
     // Visar och väljer Pokémon
     public Pokemon choosePlayerPokemon(List<Pokemon> pokemons, Scanner input) {

@@ -3,15 +3,11 @@ package menu;
 import exception.InvalidPokemonException;
 import pokedex.Pokedex;
 
-import java.util.List;
-
 import battle.BattleResult;
 import battle.BattleResultStorage;
 import battle.Battle;
-import pokemon.Attack;
 import pokemon.BattleAction;
 import pokemon.Pokemon;
-import pokemon.Type;
 
 import java.io.File;
 import java.util.Scanner;
@@ -63,7 +59,8 @@ public class Main {
             System.out.println("6. Load");
             System.out.println("7. Reset");
             System.out.println("8. Start Battle");
-            System.out.println("9. Exit");
+            System.out.println("9. Battle Results");
+            System.out.println("10. Exit");
             System.out.print("Choose an option: ");
 
             int choice = readInt(input);
@@ -158,6 +155,12 @@ public class Main {
                             // CPU:n väljer slumpmässigt en av sina attacker.
                             BattleAction opponentAction = battle.chooseOpponentAction();
 
+                            // Avslutar striden om motståndaren saknar attacker.
+                            if (opponentAction == null) {
+                                System.out.println("Opponent has no attacks. Battle ended.");
+                                break;
+                            }
+
                             // Motståndarens Pokémon attackerar spelarens Pokémon.
                             System.out.println(battle.opponentAttack(opponentAction));
                             System.out.println("Your HP: " + player.getCurrentHp());
@@ -200,7 +203,9 @@ public class Main {
 
                     }
 
-                    case 9 -> {
+                    case 9 -> BattleResultStorage.showResults();
+
+                    case 10 -> {
 
                         System.out.println("Exit");
 
