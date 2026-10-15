@@ -130,6 +130,9 @@ public class Main {
                         System.out.println("Battle started!");
                         System.out.println(player.getName() + " vs " + opponent.getName());
 
+                        // Håller koll på om spelaren avbryter striden.
+                        boolean battleCancelled = false;
+
                         // Striden fortsätter tills en Pokémon blir besegrad.
                         while (!player.isDefeated() && !opponent.isDefeated()) {
 
@@ -139,6 +142,7 @@ public class Main {
                             // Avslutar striden om spelaren väljer 0.
                             if (chosenAction == null) {
                                 System.out.println("Battle cancelled.");
+                                battleCancelled = true;
                                 break;
                             }
 
@@ -173,13 +177,15 @@ public class Main {
 
                         String result = null;
 
-                        // Kontrollerar resultatet när striden är avslutad.
-                        if (player.isDefeated()) {
-                            System.out.println("You lost the battle!");
-                            result = "LOSS";
-                        } else if (opponent.isDefeated()) {
-                            System.out.println("You won the battle!");
-                            result = "WIN";
+                        // Kontrollerar resultatet om striden inte avbröts.
+                        if (!battleCancelled) {
+                            if (player.isDefeated()) {
+                                System.out.println("You lost the battle!");
+                                result = "LOSS";
+                            } else if (opponent.isDefeated()) {
+                                System.out.println("You won the battle!");
+                                result = "WIN";
+                            }
                         }
 
                         // Sparar bara resultat om striden slutade med vinst eller förlust.
@@ -195,10 +201,12 @@ public class Main {
                             System.out.println("Battle result saved!");
                         }
 
-                        System.out.println("\n=== Battle Log ===");
+                        if (!battle.getBattleLog().isEmpty()) {
+                            System.out.println("\n=== Battle Log ===");
 
-                        for (String message : battle.getBattleLog()) {
-                            System.out.println(message);
+                            for (String message : battle.getBattleLog()) {
+                                System.out.println(message);
+                            }
                         }
 
                     }

@@ -76,9 +76,11 @@ public class Pokemon {
         attacks.add(attack);
     }
 
+
     public List<Attack> getAttacks() {
-        return attacks;
+        return new ArrayList<>(attacks);
     }
+
 
     public Pokemon() {
         this.attacks = new ArrayList<>();
