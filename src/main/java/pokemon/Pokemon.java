@@ -101,6 +101,11 @@ public class Pokemon {
     }
 
     public void takeDmg (int dmg) {
+        // Ignorerar negativ skada.
+        if (dmg < 0) {
+            return;
+        }
+
         currentHp -= dmg;
 
         if (currentHp < 0) {
