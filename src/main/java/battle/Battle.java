@@ -25,6 +25,9 @@ public class Battle {
         if (playerPokemon.isDefeated()) {
             return playerPokemon.getName() + " has no HP left and cannot attack.";
         }
+        if (opponentPokemon.isDefeated()) {
+            return opponentPokemon.getName() + " is already defeated.";
+        }
 
         // Utför spelarens attack och sparar resultatet.
         String message = attack.perform(playerPokemon, opponentPokemon);
@@ -36,6 +39,9 @@ public class Battle {
 
         if (opponentPokemon.isDefeated()) {
             return opponentPokemon.getName() + " has no HP left and cannot attack.";
+        }
+        if (playerPokemon.isDefeated()) {
+            return playerPokemon.getName() + " is already defeated.";
         }
 
         // Utför motståndarens attack och sparar resultatet.
@@ -128,8 +134,6 @@ public class Battle {
         return actions.get(randomIndex);
     }
 
-
-    // Visar och väljer Pokémon
     public Pokemon choosePlayerPokemon(List<Pokemon> pokemons, Scanner input) {
         System.out.println();
         System.out.println("=== Choose Your Pokémon ===");
@@ -177,7 +181,8 @@ public class Battle {
                 {"Wild Magmar", "FIRE", "130", "Tackle", "Flame Blast", "Flame Throw"},
                 {"Wild Golduck", "WATER", "140", "Tackle", "Water Blast", "Bubble Beam"},
                 {"Wild Gloom", "GRASS", "125", "Tackle", "Vine Whip", "Grass Dust"},
-                {"Wild Raichu", "ELECTRIC", "100", "Tackle", "Thunder Bolt", "Lightning Strike"}
+                {"Wild Raichu", "ELECTRIC", "100", "Tackle", "Thunder Bolt", "Lightning Strike"},
+                {"Pokemon Butcher", "NORMAL", "999", "Tackle"}
         };
 
         try {

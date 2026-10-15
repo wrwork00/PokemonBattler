@@ -43,7 +43,6 @@ public class Main {
             }
         }
 
-
         // Håller koll på om programmet ska fortsätta köras
         boolean running = true;
 
@@ -95,7 +94,7 @@ public class Main {
                     }
 
                     case 8 -> {
-                        // Kontrollerar att spelaren äger minst en Pokémon.
+
                         if (pokedex.getPokemons().isEmpty()) {
                             System.out.println("You don't have any Pokémon!");
                             break;
@@ -111,21 +110,26 @@ public class Main {
                                 pokedex.getPokemons(), input
                         );
 
-                        // Avbryter om spelaren väljer 0.
                         if (player == null) {
                             System.out.println("Battle cancelled.");
                             break;
                         }
 
-                        // CPU:n väljer en slumpmässig vild Pokémon.
                         Pokemon opponent = Battle.chooseWildPokemon();
 
-                        // Återställer båda Pokémon till full HP inför striden.
                         player.restoreHp();
                         opponent.restoreHp();
 
                         // Skapar striden med spelarens och motståndarens Pokémon.
                         Battle battle = new Battle(player, opponent);
+
+                        // Singlar slant för att avgöra vem som börjar.
+                        boolean playerStarts = Math.random() < 0.5;
+                        if (playerStarts) {
+                            System.out.println("Coin flip: You attack first!");
+                        } else {
+                            System.out.println("Coin flip: CPU attacks first!");
+                        }
 
                         System.out.println("Battle started!");
                         System.out.println(player.getName() + " vs " + opponent.getName());
@@ -133,46 +137,46 @@ public class Main {
                         // Håller koll på om spelaren avbryter striden.
                         boolean battleCancelled = false;
 
-                        // Striden fortsätter tills en Pokémon blir besegrad.
                         while (!player.isDefeated() && !opponent.isDefeated()) {
 
-                            // Spelaren väljer en attack.
-                            BattleAction chosenAction = battle.choosePlayerAction(input);
+                            if (playerStarts) {
+                                // Spelaren väljer en attack.
+                                BattleAction chosenAction = battle.choosePlayerAction(input);
 
-                            // Avslutar striden om spelaren väljer 0.
-                            if (chosenAction == null) {
-                                System.out.println("Battle cancelled.");
-                                battleCancelled = true;
-                                break;
+                                if (chosenAction == null) {
+                                    System.out.println("Fled from battle!");
+                                    battleCancelled = true;
+                                    break;
+                                }
+
+                                System.out.println(battle.playerAttack(chosenAction));
+                                System.out.println("Opponent HP: " + opponent.getCurrentHp());
+
+                                if (opponent.isDefeated()) {
+                                    System.out.println("Opponent is defeated!");
+                                    break;
+                                }
+
+                            } else {
+                                // CPU:n väljer en slumpmässig attack.
+                                BattleAction opponentAction = battle.chooseOpponentAction();
+
+                                if (opponentAction == null) {
+                                    System.out.println("Opponent has no attacks. Battle ended.");
+                                    break;
+                                }
+
+                                System.out.println(battle.opponentAttack(opponentAction));
+                                System.out.println("Your HP: " + player.getCurrentHp());
+
+                                if (player.isDefeated()) {
+                                    System.out.println("Your Pokémon is defeated!");
+                                    break;
+                                }
                             }
 
-                            // Spelarens Pokémon utför attacken.
-                            System.out.println(battle.playerAttack(chosenAction));
-                            System.out.println("Opponent HP: " + opponent.getCurrentHp());
-
-                            // Kontrollerar om motståndarens Pokémon har besegrats.
-                            if (opponent.isDefeated()) {
-                                System.out.println("Opponent is defeated!");
-                                break;
-                            }
-
-                            // CPU:n väljer slumpmässigt en av sina attacker.
-                            BattleAction opponentAction = battle.chooseOpponentAction();
-
-                            // Avslutar striden om motståndaren saknar attacker.
-                            if (opponentAction == null) {
-                                System.out.println("Opponent has no attacks. Battle ended.");
-                                break;
-                            }
-
-                            // Motståndarens Pokémon attackerar spelarens Pokémon.
-                            System.out.println(battle.opponentAttack(opponentAction));
-                            System.out.println("Your HP: " + player.getCurrentHp());
-
-                            // Kontrollerar om spelarens Pokémon har besegrats.
-                            if (player.isDefeated()) {
-                                System.out.println("Your Pokémon is defeated!");
-                            }
+                            // Växlar tur efter varje attack.
+                            playerStarts = !playerStarts;
                         }
 
                         String result = null;
@@ -208,7 +212,6 @@ public class Main {
                                 System.out.println(message);
                             }
                         }
-
                     }
 
                     case 9 -> BattleResultStorage.showResults();

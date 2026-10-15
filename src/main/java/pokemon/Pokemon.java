@@ -20,7 +20,6 @@ public class Pokemon {
     // Attack lista
     private final List<Attack> attacks;
 
-
     public String getName() {
 
         return name;
@@ -61,8 +60,6 @@ public class Pokemon {
         this.currentHp = maxHp;
     }
 
-
-
     // Attack lista
     public void addAttack(Attack attack) throws InvalidPokemonException {
         if (attack == null) {
@@ -76,16 +73,13 @@ public class Pokemon {
         attacks.add(attack);
     }
 
-
     public List<Attack> getAttacks() {
         return new ArrayList<>(attacks);
     }
 
-
     public Pokemon() {
         this.attacks = new ArrayList<>();
     }
-
 
     public Pokemon(String name, Type type, int maxHp, int currentHp)
             throws InvalidPokemonException {
@@ -104,7 +98,6 @@ public class Pokemon {
 
         this.currentHp = currentHp;
     }
-
 
     public String toString() {
 

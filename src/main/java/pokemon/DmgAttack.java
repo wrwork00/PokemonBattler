@@ -20,11 +20,9 @@ public class DmgAttack extends Attack {
             return user.getName() + "'s " + getName() + " missed!";
         }
 
-
         int hpBefore = target.getCurrentHp();
 
         target.takeDmg(getBaseDamage());
-
 
         int actualDamage = hpBefore - target.getCurrentHp();
 
