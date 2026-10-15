@@ -86,15 +86,25 @@ public class Pokemon {
         this.attacks = new ArrayList<>();
     }
 
-    public Pokemon(String name, Type type, int maxHp, int currentHp) throws InvalidPokemonException {
-        this.name = name;
-        this.type = type;
-        this.maxHp = maxHp;
-        this.currentHp = currentHp;
 
-        // Tom lista som sparar attacker
+    public Pokemon(String name, Type type, int maxHp, int currentHp)
+            throws InvalidPokemonException {
+
         this.attacks = new ArrayList<>();
+
+        setName(name);
+        setType(type);
+        setMaxHp(maxHp);
+
+        if (currentHp < 0 || currentHp > maxHp) {
+            throw new InvalidPokemonException(
+                    "Current HP must be between 0 and max HP."
+            );
+        }
+
+        this.currentHp = currentHp;
     }
+
 
     public String toString() {
 
