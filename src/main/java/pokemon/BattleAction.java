@@ -6,4 +6,3 @@ public interface BattleAction {
 
     String label();
 }
-

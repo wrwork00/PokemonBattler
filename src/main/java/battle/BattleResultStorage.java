@@ -29,7 +29,7 @@ public class BattleResultStorage {
         }
     }
 
-    // Läser tidigare sparade resultat från JSON-filen.
+    // Läser tidigare sparade resultat från JSON filen.
     public static List<BattleResult> loadResults() {
         File file = new File(FILE_NAME);
 
@@ -82,4 +82,3 @@ public class BattleResultStorage {
     }
 
 }
-

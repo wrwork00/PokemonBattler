@@ -23,7 +23,7 @@ public class DmgAttack extends Attack {
         // Hämtar typens skadefaktor mot motståndarens typ.
         double typeMultiplier = getType().getDamageMultiplier(target.getType());
 
-        // Ghost och Normal kan vara immuna mot varandras attacker.
+        // Hanterar attacker som inte har någon effekt.
         if (typeMultiplier == 0.0) {
             return user.getName() + " used " + getName()
                     + ", but it had no effect on " + target.getName() + "!";
@@ -44,14 +44,12 @@ public class DmgAttack extends Attack {
             damage = (int) (damage * 1.5);
         }
 
-        // Sparar HP före attacken så att vi kan beräkna faktisk skada.
         int hpBefore = target.getCurrentHp();
 
         target.takeDmg(damage);
 
         int actualDamage = hpBefore - target.getCurrentHp();
 
-        // Skapar meddelandet som visas i stridsloggen.
         String message = user.getName() + " used " + getName()
                 + " on " + target.getName()
                 + " for " + actualDamage + " damage.";

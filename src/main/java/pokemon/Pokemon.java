@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-
 public class Pokemon {
 
     // info om Pokémon
@@ -24,6 +23,7 @@ public class Pokemon {
 
         return name;
     }
+
     public void setName(String name) throws InvalidPokemonException {
         if (name == null || name.trim().isEmpty()) {
             throw new InvalidPokemonException("Pokémon name cannot be empty.");
@@ -32,13 +32,12 @@ public class Pokemon {
         name = name.trim();
 
         this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-
     }
 
     public Type getType() {
-
         return type;
     }
+
     public void setType(Type type) throws InvalidPokemonException {
         if (type == null) {
             throw new InvalidPokemonException("Pokémon type must be selected.");
@@ -48,7 +47,6 @@ public class Pokemon {
     }
 
     public int getMaxHp() {
-
         return maxHp;
     }
 
@@ -99,7 +97,6 @@ public class Pokemon {
     }
 
     public String toString() {
-
         return name + " - " + type + " - " + maxHp + " HP" +
                 " - Attacks: " + attacks;
     }
@@ -141,5 +138,4 @@ public class Pokemon {
             throw new InvalidPokemonException("Attack not found.");
         }
     }
-
 }

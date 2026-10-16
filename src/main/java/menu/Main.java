@@ -43,7 +43,6 @@ public class Main {
             }
         }
 
-        // Håller koll på om programmet ska fortsätta köras
         boolean running = true;
 
         while (running) {
@@ -69,7 +68,6 @@ public class Main {
 
                     case 1 -> PokedexMenu.start(input, pokedex);
 
-                    //Skapa en ny Pokémon
                     case 2 -> PokedexMenu.addPokemon(input, pokedex);
 
                     case 3 -> PokedexMenu.editPokemon(input, pokedex);
@@ -80,7 +78,7 @@ public class Main {
                     case 6 -> pokedex.load();
 
                     case 7 -> {
-                        // Tömmer listan med Pokémon
+
                         pokedex.getPokemons().clear();
 
                         // Lägger tillbaka starter Pokémon
@@ -144,6 +142,7 @@ public class Main {
                         while (!player.isDefeated() && !opponent.isDefeated()) {
 
                             if (playerStarts) {
+
                                 // Spelaren väljer en attack.
                                 BattleAction chosenAction = battle.choosePlayerAction(input);
 

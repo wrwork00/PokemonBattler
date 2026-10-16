@@ -61,7 +61,7 @@ public class Battle {
         return actions;
     }
 
-    // // Visar spelarens attacker och val
+    // Visar spelarens attacker och val
     public void showPlayerActions() {
         List<BattleAction> actions = getPlayerActions();
 
@@ -188,6 +188,8 @@ public class Battle {
                 {"Pokemon Butcher", "NORMAL", "999", "Tackle"}
         };
 
+
+        // // Skapar varje vild Pokémon utifrån dess data, lägger till dess attacker och sparar den i listan över vilda Pokémon.
         try {
             for (String[] data : pokemonData) {
                 Pokemon pokemon = new Pokemon(
@@ -227,5 +229,3 @@ public class Battle {
     }
 
 }
-
-
