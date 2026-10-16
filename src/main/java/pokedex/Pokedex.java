@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import exception.InvalidPokemonException;
 import exception.PokemonNotFoundException;
 import pokemon.Attack;
-import pokemon.HealAttack;
 import pokemon.Pokemon;
 import pokemon.Type;
 
