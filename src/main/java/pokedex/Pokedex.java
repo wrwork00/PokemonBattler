@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import exception.InvalidPokemonException;
 import exception.PokemonNotFoundException;
 import pokemon.Attack;
+import pokemon.HealAttack;
 import pokemon.Pokemon;
 import pokemon.Type;
 
@@ -111,6 +112,7 @@ public class Pokedex {
 
         Attack shadowBall = Attack.getAttackByName("Shadow Ball");
         Attack psychosis = Attack.getAttackByName("Psychosis");
+        Attack fullRestore = Attack.getAttackByName("Full Restore");
 
         //Skapar Pokémon: name, type, maxHp, currentHp
         List<Pokemon> starterPokemon = createStarterPokemon();
@@ -119,10 +121,10 @@ public class Pokedex {
         addAttacks(starterPokemon.get(0), tackle, flameBlast, flameThrow);
         addAttacks(starterPokemon.get(1), tackle, waterBlast, bubbleBeam);
         addAttacks(starterPokemon.get(2), tackle, vineWhip, grassDust);
-
         addAttacks(starterPokemon.get(3), tackle, thunderBolt, lightningStrike);
         addAttacks(starterPokemon.get(4), tackle, heavyAttack, tailwhip);
         addAttacks(starterPokemon.get(5), tackle, shadowBall, psychosis);
+        addAttacks(starterPokemon.get(6), tackle, vineWhip, fullRestore);
 
         try {
             for (Pokemon pokemon : starterPokemon) {
@@ -142,6 +144,7 @@ public class Pokedex {
         starterPokemon.add(new Pokemon("Pikachu", Type.ELECTRIC, 90, 90));
         starterPokemon.add(new Pokemon("Eevee", Type.NORMAL, 80, 80));
         starterPokemon.add(new Pokemon("Gengar", Type.GHOST, 150, 150));
+        starterPokemon.add(new Pokemon("Celebi", Type.GRASS, 90, 90));
 
         return starterPokemon;
     }

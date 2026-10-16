@@ -12,10 +12,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "attackType"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DmgAttack.class, name = "damage")
+        @JsonSubTypes.Type(value = DmgAttack.class, name = "damage"),
+        @JsonSubTypes.Type(value = HealAttack.class, name = "heal")
 })
 
-public abstract class Attack implements BattleAction{
+public abstract class Attack implements BattleAction {
 
     // Attack Info
     private String name;
@@ -78,6 +79,7 @@ public abstract class Attack implements BattleAction{
             case "Shadow Ball" -> new DmgAttack("Shadow Ball", 40, 100, Type.GHOST);
             case "Psychosis" -> new DmgAttack("Psychosis", 200, 20, Type.GHOST);
             case "Basic Attack" -> new DmgAttack("Basic Attack", 35, 70, Type.NORMAL);
+            case "Full Restore" -> new HealAttack("Full Restore", 0, 100, Type.NORMAL);
 
             default -> throw new IllegalArgumentException("Unknown attack: " + name);
         };
@@ -101,6 +103,7 @@ public abstract class Attack implements BattleAction{
         attacks.add(getAttackByName("Shadow Ball"));
         attacks.add(getAttackByName("Psychosis"));
         attacks.add(getAttackByName("Basic Attack"));
+        attacks.add(getAttackByName("Full Restore"));
 
         return attacks;
     }

@@ -9,6 +9,7 @@ import pokemon.Type;
 import pokemon.Attack;
 import pokemon.Pokemon;
 import pokemon.BattleAction;
+import pokemon.HealAttack;
 
 public class Battle {
 
@@ -61,7 +62,6 @@ public class Battle {
         return actions;
     }
 
-    // Visar spelarens attacker och val
     public void showPlayerActions() {
         List<BattleAction> actions = getPlayerActions();
 
@@ -69,7 +69,24 @@ public class Battle {
         System.out.println("=== Choose Attack ===");
 
         for (int i = 0; i < actions.size(); i++) {
-            System.out.println((i + 1) + ". " + actions.get(i).label());
+            BattleAction action = actions.get(i);
+
+            if (action instanceof HealAttack healAttack) {
+                System.out.printf(
+                        "%d. %s | HEAL: 100%% HP | CHANCE: 25%%%n",
+                        i + 1,
+                        healAttack.getName()
+                );
+            } else if (action instanceof Attack attack) {
+                System.out.printf(
+                        "%d. %s | DMG: %d | ACC: %d%% | %s%n",
+                        i + 1,
+                        attack.getName(),
+                        attack.getBaseDamage(),
+                        attack.getAccuracy(),
+                        attack.getType()
+                );
+            }
         }
 
         System.out.println("0. Cancel");
