@@ -42,6 +42,7 @@ Skadan beräknas med attackens grundskada och en multiplikator beroende på typm
 - Elementnackdel: En slumpmässig multiplikator mellan 0,5 och 1,0 används.
 - Kritisk träff: Skadan multipliceras med 1,5.
 - Miss: Ingen skada orsakas.
+- Heal: Full HP regenereras 25% chans.
 
 ## Exempel på användning
 
