@@ -628,9 +628,13 @@ public class PokedexMenu {
                     }
 
                     Attack removedAttack = pokemon.getAttacks().get(attackChoice - 1);
-                    pokemon.getAttacks().remove(removedAttack);
 
-                    System.out.println(removedAttack + " removed from " + pokemon.getName());
+                    try {
+                        pokemon.removeAttack(removedAttack);
+                        System.out.println(removedAttack + " removed from " + pokemon.getName());
+                    } catch (InvalidPokemonException e) {
+                        System.out.println(e.getMessage());
+                    }
 
                     removeAttack = true;
                 }

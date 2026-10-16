@@ -1,11 +1,87 @@
 package pokemon;
 
+// Pokémon-typer och deras typeffektivitet.
 public enum Type {
-    // Pokémon typer och deras type attacker
     FIRE,
     WATER,
     GRASS,
     ELECTRIC,
     NORMAL,
-    GHOST
+    GHOST;
+
+    public double getDamageMultiplier(Type defenderType) {
+
+        // NORMAL-attacker kan inte träffa GHOST.
+        if (this == NORMAL && defenderType == GHOST) {
+            return 0.0;
+        }
+
+        // GHOST-attacker kan inte träffa NORMAL.
+        if (this == GHOST && defenderType == NORMAL) {
+            return 0.0;
+        }
+
+        // NORMAL har annars alltid neutral skada.
+        if (this == NORMAL) {
+            return 1.0;
+        }
+
+        // GHOST är effektivt mot GHOST.
+        if (this == GHOST && defenderType == GHOST) {
+            return randomAdvantage();
+        }
+
+        // FIRE
+        if (this == FIRE && defenderType == GRASS) {
+            return randomAdvantage();
+        }
+
+        if (this == FIRE &&
+                (defenderType == WATER || defenderType == FIRE)) {
+            return randomDisadvantage();
+        }
+
+        // WATER
+        if (this == WATER && defenderType == FIRE) {
+            return randomAdvantage();
+        }
+
+        if (this == WATER &&
+                (defenderType == GRASS || defenderType == WATER)) {
+            return randomDisadvantage();
+        }
+
+        // GRASS
+        if (this == GRASS && defenderType == WATER) {
+            return randomAdvantage();
+        }
+
+        if (this == GRASS &&
+                (defenderType == FIRE || defenderType == GRASS)) {
+            return randomDisadvantage();
+        }
+
+        // ELECTRIC
+        if (this == ELECTRIC && defenderType == WATER) {
+            return randomAdvantage();
+        }
+
+        if (this == ELECTRIC &&
+                (defenderType == GRASS || defenderType == ELECTRIC)) {
+            return randomDisadvantage();
+        }
+
+        // Alla övriga kombinationer är neutrala.
+        return 1.0;
+    }
+
+    // Slumpar en multiplikator mellan 1.0 och 1.5.
+    private double randomAdvantage() {
+        return 1.0 + Math.random() * 0.5;
+    }
+
+    // Slumpar en multiplikator mellan 0.5 och 1.0.
+    private double randomDisadvantage() {
+        return 0.5 + Math.random() * 0.5;
+    }
 }

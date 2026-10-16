@@ -2,4 +2,24 @@
   "playerPokemon" : "Pikachu",
   "opponentPokemon" : "Wild gloom",
   "result" : "LOSS"
+}, {
+  "playerPokemon" : "Eevee",
+  "opponentPokemon" : "Wild magmar",
+  "result" : "LOSS"
+}, {
+  "playerPokemon" : "Bulbasaur",
+  "opponentPokemon" : "Wild gloom",
+  "result" : "LOSS"
+}, {
+  "playerPokemon" : "Charmander",
+  "opponentPokemon" : "Wild gloom",
+  "result" : "LOSS"
+}, {
+  "playerPokemon" : "Charmander",
+  "opponentPokemon" : "Pokemon butcher",
+  "result" : "LOSS"
+}, {
+  "playerPokemon" : "Bulbasaur",
+  "opponentPokemon" : "Wild charmander",
+  "result" : "LOSS"
 } ]

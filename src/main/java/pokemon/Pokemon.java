@@ -131,4 +131,16 @@ public class Pokemon {
         currentHp = maxHp;
     }
 
+    public void removeAttack(Attack attack) throws InvalidPokemonException {
+        if (attacks.size() <= 1) {
+            throw new InvalidPokemonException(
+                    "Pokémon must have at least 1 attack."
+            );
+        }
+
+        if (!attacks.remove(attack)) {
+            throw new InvalidPokemonException("Attack not found.");
+        }
+    }
+
 }

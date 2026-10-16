@@ -117,6 +117,11 @@ public class Main {
 
                         Pokemon opponent = Battle.chooseWildPokemon();
 
+                        if (player.isDefeated()) {
+                            System.out.println("Your Pokémon has no HP and cannot battle.");
+                            break;
+                        }
+
                         player.restoreHp();
                         opponent.restoreHp();
 
@@ -144,7 +149,12 @@ public class Main {
                                 BattleAction chosenAction = battle.choosePlayerAction(input);
 
                                 if (chosenAction == null) {
-                                    System.out.println("Fled from battle!");
+                                    if (player.getAttacks().isEmpty()) {
+                                        System.out.println("Your Pokémon has no attacks. Battle ended.");
+                                    } else {
+                                        System.out.println("Fled from battle!");
+                                    }
+
                                     battleCancelled = true;
                                     break;
                                 }

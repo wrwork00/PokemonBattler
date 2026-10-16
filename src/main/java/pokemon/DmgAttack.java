@@ -20,21 +20,51 @@ public class DmgAttack extends Attack {
             return user.getName() + "'s " + getName() + " missed!";
         }
 
+        // Hämtar typens skadefaktor mot motståndarens typ.
+        double typeMultiplier = getType().getDamageMultiplier(target.getType());
+
+        // Ghost och Normal kan vara immuna mot varandras attacker.
+        if (typeMultiplier == 0.0) {
+            return user.getName() + " used " + getName()
+                    + ", but it had no effect on " + target.getName() + "!";
+        }
+
+        // Neutral skada är alltid basskadan.
+        int damage = getBaseDamage();
+
+        // Typfördel eller typnackdel ändrar basskadan.
+        if (typeMultiplier != 1.0) {
+            damage = (int) (getBaseDamage() * typeMultiplier);
+        }
+
+        // 15 % chans till en kritisk träff.
+        boolean criticalHit = Math.random() < 0.15;
+
+        if (criticalHit) {
+            damage = (int) (damage * 1.5);
+        }
+
+        // Sparar HP före attacken så att vi kan beräkna faktisk skada.
         int hpBefore = target.getCurrentHp();
 
-        target.takeDmg(getBaseDamage());
+        target.takeDmg(damage);
 
         int actualDamage = hpBefore - target.getCurrentHp();
 
-        // Returnerar ett meddelande som kan visas och sparas i loggen.
-        return user.getName() + " used " + getName()
+        // Skapar meddelandet som visas i stridsloggen.
+        String message = user.getName() + " used " + getName()
                 + " on " + target.getName()
                 + " for " + actualDamage + " damage.";
+
+        if (criticalHit) {
+            message += " Critical hit!";
+        }
+
+        return message;
     }
 
     @Override
     public String label() {
-        // Hämtar attackens namn.
         return getName();
     }
 }
