@@ -122,7 +122,6 @@ public class Main {
                             break;
                         }
 
-                        player.restoreHp();
                         opponent.restoreHp();
 
                         // Skapar striden med spelarens och motståndarens Pokémon.
@@ -222,6 +221,8 @@ public class Main {
                                 System.out.println(message);
                             }
                         }
+                        // Återställer spelarens Pokémon efter avslutad strid.
+                        player.restoreHp();
                     }
 
                     case 9 -> {

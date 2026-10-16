@@ -35,6 +35,14 @@ Pokémon Battler är ett konsolbaserat Java-program som bygger vidare på mitt t
 - Spara och visa stridsresultat, inklusive vinster och förluster.
 - Avbryta en pågående strid.
 
+## Skadeformel
+Skadan beräknas med attackens grundskada och en multiplikator beroende på typmatchningen. Träffsäkerheten avgör om attacken träffar. En kritisk träff kan inträffa efter att attacken träffat.
+- Neutral typmatchning: Grundskadan används utan elementbaserad multiplikator
+- Elementfördel: En slumpmässig multiplikator mellan 1,0 och 1,5 används.
+- Elementnackdel: En slumpmässig multiplikator mellan 0,5 och 1,0 används.
+- Kritisk träff: Skadan multipliceras med 1,5.
+- Miss: Ingen skada orsakas.
+
 ## Exempel på användning
 
 Vid start visas Pokédex-menyn:
@@ -50,16 +58,40 @@ Vid start visas Pokédex-menyn:
 9. Battle Results
 10. Exit
 
-Exempel: Pokédex
+## Exempel: Pokédex
 - Välj `2` för att lägga till en Pokémon.
 - Ange namn, typ och max HP.
 - Pokémonen läggs till i Pokédexen med standardattacker.
 - Välj `5` för att spara Pokédexen.
 
-Exempel: Pokémon Battler 
+## Exempel: Pokémon Battler 
 - Välj `8` för att starta battle.
 - Välj vilken av dina Pokémon som ska delta.
 - Välj en attack under varje spelartur.
 - Motståndaren attackerar om den fortfarande är vid liv.
 - Striden avslutas när någon Pokémon besegras.
 - Välj `9` för att visa sparade stridsresultat.
+
+## OOP
+Projektet är uppdelat i flera klasser med olika ansvarsområden för att göra koden lättare att förstå och underhålla.
+
+- Pokemon representerar en Pokémon och dess egenskaper, exempelvis namn, typ, HP och attacker.
+- Attack representerar en attack och dess egenskaper.
+- DmgAttack hanterar hur en skadebaserad attack utförs.
+- Type hanterar Pokémon-typer och typmatchningar.
+- Battle hanterar stridens logik, turordning och attacker.
+- BattleResult representerar resultatet av en strid.
+- BattleResultStorage hanterar sparning och inläsning av stridsresultat.
+- Pokedex hanterar spelarens Pokémon.
+- Main hanterar programmets huvudmeny.
+
+Klasserna har separata ansvarsområden för att undvika att all logik hamnar i en enda klass.
+
+## Sparning av data
+Pokédexen sparas i en JSON-fil med hjälp av Jackson. Stridsresultat sparas separat i battle-results.json, så att tidigare resultat kan visas efter att programmet startats om.
+
+## Begränsningar
+
+- Programmet är konsolbaserat och använder textmenyer.
+- Vilda Pokémon och CPU attacker väljs slumpmässigt.
+- Stridsresultat sparas som enskilda strider i battle-results.json

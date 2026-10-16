@@ -11,17 +11,6 @@ public enum Type {
 
     public double getDamageMultiplier(Type defenderType) {
 
-        // NORMAL-attacker kan inte träffa GHOST.
-        if (this == NORMAL && defenderType == GHOST) {
-            return 0.0;
-        }
-
-        // GHOST-attacker kan inte träffa NORMAL.
-        if (this == GHOST && defenderType == NORMAL) {
-            return 0.0;
-        }
-
-        // NORMAL har annars alltid neutral skada.
         if (this == NORMAL) {
             return 1.0;
         }
