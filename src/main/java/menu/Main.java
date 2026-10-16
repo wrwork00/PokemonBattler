@@ -224,7 +224,38 @@ public class Main {
                         }
                     }
 
-                    case 9 -> BattleResultStorage.showResults();
+                    case 9 -> {
+                        boolean resultsMenu = true;
+
+                        while (resultsMenu) {
+                            System.out.println("\n=== Battle Results ===");
+                            System.out.println("1. Show Results");
+                            System.out.println("2. Reset Results");
+                            System.out.println("0. Back");
+                            System.out.print("Choose an option: ");
+
+                            int resultsChoice = readInt(input);
+
+                            switch (resultsChoice) {
+                                case 1 -> BattleResultStorage.showResults();
+
+                                case 2 -> {
+                                    System.out.print("Are you sure you want to reset all results? (yes/no): ");
+                                    String confirmation = input.nextLine();
+
+                                    if (confirmation.equalsIgnoreCase("yes")) {
+                                        BattleResultStorage.resetResults();
+                                    } else {
+                                        System.out.println("Reset cancelled.");
+                                    }
+                                }
+
+                                case 0 -> resultsMenu = false;
+
+                                default -> System.out.println("Invalid choice!");
+                            }
+                        }
+                    }
 
                     case 10 -> {
 
@@ -251,6 +282,9 @@ public class Main {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input!");
             return Integer.MIN_VALUE;
+        } catch (java.util.NoSuchElementException e) {
+            System.out.println("Input ended. Exiting program.");
+            return 10;
         }
     }
 }

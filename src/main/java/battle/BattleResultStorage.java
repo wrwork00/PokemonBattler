@@ -1,4 +1,3 @@
-
 package battle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,5 +71,15 @@ public class BattleResultStorage {
             );
         }
     }
+
+    public static void resetResults() {
+        try {
+            mapper.writeValue(new File(FILE_NAME), new ArrayList<BattleResult>());
+            System.out.println("Battle results have been reset!");
+        } catch (IOException e) {
+            System.out.println("Could not reset battle results: " + e.getMessage());
+        }
+    }
+
 }
 

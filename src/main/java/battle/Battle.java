@@ -106,6 +106,9 @@ public class Battle {
 
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input!");
+            } catch (java.util.NoSuchElementException e) {
+                System.out.println("Input ended. Battle cancelled.");
+                return null;
             }
         }
     }

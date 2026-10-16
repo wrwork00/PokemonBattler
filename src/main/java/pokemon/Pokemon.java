@@ -60,7 +60,6 @@ public class Pokemon {
         this.currentHp = maxHp;
     }
 
-    // Attack lista
     public void addAttack(Attack attack) throws InvalidPokemonException {
         if (attack == null) {
             throw new InvalidPokemonException("Attack cannot be null.");
